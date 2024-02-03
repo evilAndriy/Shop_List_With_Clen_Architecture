@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Shop list with clena rchitecture</string>
+    <string name="count">Count:</string>
+    <string name="name">Name:</string>
 </resources>
