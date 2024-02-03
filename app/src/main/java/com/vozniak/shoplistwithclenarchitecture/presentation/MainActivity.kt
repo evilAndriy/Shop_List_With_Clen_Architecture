@@ -26,12 +26,19 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+
         setUpRecyclerView()
         viewModel.shopList.observe(this, {
             shopListAdapter.submitList(it)
         })
+     initAddButton()
+    }
 
-
+    private fun initAddButton() {
+        binding.floatingActionButton.setOnClickListener() {
+            val intent = ShopListActivity.initAddIntent(this@MainActivity)
+            startActivity(intent)
+        }
     }
 
     private fun setUpRecyclerView() {
