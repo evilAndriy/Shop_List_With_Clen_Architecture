@@ -10,12 +10,12 @@ import com.vozniak.shoplistwithclenarchitecture.databinding.ActivityShopListBind
 
 class ShopListActivity : AppCompatActivity() {
     lateinit var binding: ActivityShopListBinding
-//    private lateinit var viewModel: ShopItemViewModel
+//   private lateinit var viewModel: ShopItemViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityShopListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        viewModel = ViewModelProvider(this)[ShopItemViewModel::class.java]
+//      viewModel = ViewModelProvider(this)[ShopItemViewModel::class.java]
         val mode = intent.getStringExtra(EXTRA_SCREEN_MODE)
     }
 
