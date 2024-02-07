@@ -40,9 +40,8 @@ class ShopListAdapter : ListAdapter<ShopItem, ShopItemViewHolder>(ShopItemDiffCa
     override fun onBindViewHolder(holder: ShopItemViewHolder, position: Int) {
         val shopItem = getItem(position)
         holder.bindView(shopItem)
-        holder.view.setOnLongClickListener() {
+        holder.view.setOnClickListener() {
             shopItemClickVal?.invoke(shopItem)
-            true
         }
         holder.view.setOnLongClickListener() {
             shopItemLongClickVal?.invoke(shopItem)

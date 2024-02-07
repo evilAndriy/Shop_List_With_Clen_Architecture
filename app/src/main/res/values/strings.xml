@@ -2,4 +2,7 @@
     <string name="app_name">Shop list with clena rchitecture</string>
     <string name="name">\Name:</string>
     <string name="count">\Count:</string>
+    <string name="Error">Error</string>
+    <string name="errorCount">error_input_count</string>
+    <string name="errorName">error_input_name</string>
 </resources>

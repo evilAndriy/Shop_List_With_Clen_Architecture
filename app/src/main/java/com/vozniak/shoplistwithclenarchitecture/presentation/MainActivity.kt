@@ -1,19 +1,12 @@
 package com.vozniak.shoplistwithclenarchitecture.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.lifecycle.ViewModel
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.vozniak.shoplistwithclenarchitecture.data.ShopListRepositoryImpl
 import com.vozniak.shoplistwithclenarchitecture.databinding.ActivityMainBinding
-import com.vozniak.shoplistwithclenarchitecture.domain.DeleteShopItemUseCase
-import com.vozniak.shoplistwithclenarchitecture.domain.EditShopItemUseCase
-import com.vozniak.shoplistwithclenarchitecture.domain.GetShopListUseCase
-import com.vozniak.shoplistwithclenarchitecture.domain.ShopItem
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,12 +24,12 @@ class MainActivity : AppCompatActivity() {
         viewModel.shopList.observe(this, {
             shopListAdapter.submitList(it)
         })
-     initAddButton()
+        initAddButton()
     }
 
     private fun initAddButton() {
         binding.floatingActionButton.setOnClickListener() {
-            val intent = ShopListActivity.initAddIntent(this@MainActivity)
+            val intent = ShopListActivity.newAddIntent(this@MainActivity)
             startActivity(intent)
         }
     }
@@ -89,7 +82,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpClickListener() {
         shopListAdapter.shopItemClickVal = {
-
+            val intent = ShopListActivity.newEditIntent(this@MainActivity, it.id)
+            startActivity(intent)
         }
     }
 
