@@ -21,105 +21,106 @@ class ShopListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityShopListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel = ViewModelProvider(this)[ShopItemViewModel::class.java]
-        parseIntent()
-        addTextChangeListeners()
-        launchRightMode()
-        observeViewModels()
+//        viewModel = ViewModelProvider(this)[ShopItemViewModel::class.java]
+//        parseIntent()
+//        addTextChangeListeners()
+//        launchRightMode()
+//        observeViewModels()
+//    }
+//
+//    private fun launchRightMode() {
+//        when (screenMode) {
+//            MODE_AD -> initAddMode()
+//            MODE_EDIT -> initEditMode()
+//        }
+//    }
+//
+//    fun addTextChangeListeners() {
+//        binding.MyNameText.addTextChangedListener(object : TextWatcher {
+//            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+//            }
+//            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+//                viewModel.resetErrorInputName()
+//            }
+//            override fun afterTextChanged(p0: Editable?) {
+//            }
+//
+//        })
+//        binding.MyCountText.addTextChangedListener(object : TextWatcher {
+//            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+//            }
+//            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+//                viewModel.resetErrorInputCount()
+//            }
+//            override fun afterTextChanged(p0: Editable?) {
+//            }
+//        })
+//    }
+//
+//    fun observeViewModels() {
+//        viewModel.errorInputCount.observe(this) {
+//            val massage = if (it) {
+//                getString(R.string.errorCount)
+//            } else {
+//                null
+//            }
+//            binding.MyCountText.error = massage
+//        }
+//        viewModel.errorInputName.observe(this) {
+//            val massage = if (it) {
+//                getString(R.string.errorName)
+//            } else {
+//                null
+//            }
+//            binding.MyNameText.error = massage
+//        }
+//        viewModel.finish.observe(this) {
+//            finish()
+//        }
+//    }
+//
+//    fun initAddMode() {
+//        binding.addButton.setOnClickListener() {
+//            viewModel.addShopItem(
+//                binding.MyNameText.text?.toString(),
+//                binding.MyCountText.text?.toString()
+//            )
+//        }
+//    }
+//
+//    fun initEditMode() {
+//        viewModel.getShopItem(shopItemId)
+//        viewModel.shopItem.observe(this, {
+//            binding.MyNameText.setText(it.name)
+//            binding.MyCountText.setText(it.count.toString())
+//        })
+//        binding.addButton.setOnClickListener() {
+//            viewModel.editShopItem(
+//                binding.MyNameText.text?.toString(),
+//                binding.MyCountText.text?.toString()
+//            )
+//        }
+//    }
+//
+//    private fun parseIntent() {
+//        if (!intent.hasExtra(EXTRA_SCREEN_MODE)) {
+//            throw RuntimeException("missing screen mode")
+//        }
+//        val mode = intent.getStringExtra(EXTRA_SCREEN_MODE)
+//        if (mode != MODE_AD && mode != MODE_EDIT) {
+//            throw RuntimeException("Unknown mode")
+//        }
+//        screenMode = mode
+//        if (screenMode == MODE_EDIT) {
+//            if (!intent.hasExtra(EXTRA_SHOP_ITEM_ID)) {
+//                throw RuntimeException("missing ID")
+//            }
+//            shopItemId = intent.getIntExtra(EXTRA_SHOP_ITEM_ID, ShopItem.UNDEFINED_ID)
+//        }
+//
+//    }
+//
     }
-
-    private fun launchRightMode() {
-        when (screenMode) {
-            MODE_AD -> initAddMode()
-            MODE_EDIT -> initEditMode()
-        }
-    }
-
-    fun addTextChangeListeners() {
-        binding.MyNameText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                viewModel.resetErrorInputName()
-            }
-            override fun afterTextChanged(p0: Editable?) {
-            }
-
-        })
-        binding.MyCountText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                viewModel.resetErrorInputCount()
-            }
-            override fun afterTextChanged(p0: Editable?) {
-            }
-        })
-    }
-
-    fun observeViewModels() {
-        viewModel.errorInputCount.observe(this) {
-            val massage = if (it) {
-                getString(R.string.errorCount)
-            } else {
-                null
-            }
-            binding.MyCountText.error = massage
-        }
-        viewModel.errorInputName.observe(this) {
-            val massage = if (it) {
-                getString(R.string.errorName)
-            } else {
-                null
-            }
-            binding.MyNameText.error = massage
-        }
-        viewModel.finish.observe(this) {
-            finish()
-        }
-    }
-
-    fun initAddMode() {
-        binding.addButton.setOnClickListener() {
-            viewModel.addShopItem(
-                binding.MyNameText.text?.toString(),
-                binding.MyCountText.text?.toString()
-            )
-        }
-    }
-
-    fun initEditMode() {
-        viewModel.getShopItem(shopItemId)
-        viewModel.shopItem.observe(this, {
-            binding.MyNameText.setText(it.name)
-            binding.MyCountText.setText(it.count.toString())
-        })
-        binding.addButton.setOnClickListener() {
-            viewModel.editShopItem(
-                binding.MyNameText.text?.toString(),
-                binding.MyCountText.text?.toString()
-            )
-        }
-    }
-
-    private fun parseIntent() {
-        if (!intent.hasExtra(EXTRA_SCREEN_MODE)) {
-            throw RuntimeException("missing screen mode")
-        }
-        val mode = intent.getStringExtra(EXTRA_SCREEN_MODE)
-        if (mode != MODE_AD && mode != MODE_EDIT) {
-            throw RuntimeException("Unknown mode")
-        }
-        screenMode = mode
-        if (screenMode == MODE_EDIT) {
-            if (!intent.hasExtra(EXTRA_SHOP_ITEM_ID)) {
-                throw RuntimeException("missing ID")
-            }
-            shopItemId = intent.getIntExtra(EXTRA_SHOP_ITEM_ID, ShopItem.UNDEFINED_ID)
-        }
-
-    }
-
 
     companion object {
         private const val EXTRA_SCREEN_MODE = "extra_mod"
