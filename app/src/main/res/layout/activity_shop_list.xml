@@ -5,7 +5,6 @@
     android:id="@+id/item_holder"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:name="com.vozniak.shoplistwithclenarchitecture.presentation.ShopItemFragment"
     tools:context=".presentation.ShopListActivity"
     tools:layout="@layout/fragment_shop_item">
 
