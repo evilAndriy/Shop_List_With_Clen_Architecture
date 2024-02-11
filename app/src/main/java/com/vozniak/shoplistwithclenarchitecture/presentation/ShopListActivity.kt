@@ -25,16 +25,17 @@ class ShopListActivity : AppCompatActivity() {
     }
 
     private fun launchRightMode() {
-        val addFragment = ShopItemFragment.newInstanceAddFragment()
-        val editFragment = ShopItemFragment.newInstanceEditFragment(shopItemId)
-        when (screenMode) {
-            MODE_AD -> supportFragmentManager.beginTransaction()
-                .add(R.id.item_holder, addFragment).commit()
-
-            MODE_EDIT -> supportFragmentManager.beginTransaction()
-                .add(R.id.item_holder, editFragment).commit()
+        val fragment = when (screenMode) {
+            MODE_AD -> ShopItemFragment.newInstanceAddFragment()
+            MODE_EDIT -> ShopItemFragment.newInstanceEditFragment(shopItemId)
+            else -> null
         }
 
+        fragment?.let {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.item_holder, it)
+                .commit()
+        }
     }
 
     private fun parseIntent() {
