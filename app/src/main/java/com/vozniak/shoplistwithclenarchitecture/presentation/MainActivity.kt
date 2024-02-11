@@ -2,10 +2,13 @@ package com.vozniak.shoplistwithclenarchitecture.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.vozniak.shoplistwithclenarchitecture.R
 import com.vozniak.shoplistwithclenarchitecture.databinding.ActivityMainBinding
 
 
@@ -13,24 +16,41 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     private lateinit var shopListAdapter: ShopListAdapter
     private lateinit var viewModel: MainViewModel
+    var fragment_holder: FragmentContainerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        fragment_holder = findViewById(R.id.fragment_holder)
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-
         setUpRecyclerView()
         viewModel.shopList.observe(this, {
             shopListAdapter.submitList(it)
         })
         initAddButton()
+
+    }
+
+    fun paneMode(): Boolean {
+        return fragment_holder == null
+    }
+
+    fun initFragment(fragment: Fragment) {
+        supportFragmentManager.popBackStack()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_holder, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun initAddButton() {
         binding.floatingActionButton.setOnClickListener() {
-            val intent = ShopListActivity.newAddIntent(this@MainActivity)
-            startActivity(intent)
+            if (paneMode()) {
+                val intent = ShopListActivity.newAddIntent(this@MainActivity)
+                startActivity(intent)
+            } else initFragment(ShopItemFragment.newInstanceAddFragment())
+
         }
     }
 
@@ -82,8 +102,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpClickListener() {
         shopListAdapter.shopItemClickVal = {
-            val intent = ShopListActivity.newEditIntent(this@MainActivity, it.id)
-            startActivity(intent)
+            if (paneMode()) {
+                val intent = ShopListActivity.newEditIntent(this@MainActivity, it.id)
+                startActivity(intent)
+            } else initFragment(ShopItemFragment.newInstanceEditFragment(it.id))
         }
     }
 
