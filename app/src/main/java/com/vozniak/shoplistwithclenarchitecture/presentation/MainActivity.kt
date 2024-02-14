@@ -1,6 +1,7 @@
 package com.vozniak.shoplistwithclenarchitecture.presentation
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
@@ -12,7 +13,7 @@ import com.vozniak.shoplistwithclenarchitecture.R
 import com.vozniak.shoplistwithclenarchitecture.databinding.ActivityMainBinding
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedListener {
     lateinit var binding: ActivityMainBinding
     private lateinit var shopListAdapter: ShopListAdapter
     private lateinit var viewModel: MainViewModel
@@ -113,6 +114,11 @@ class MainActivity : AppCompatActivity() {
         shopListAdapter.shopItemLongClickVal = {
             viewModel.changeEnabledState(it)
         }
+    }
+
+    override fun initFinish() {
+        supportFragmentManager.popBackStack()
+        Toast.makeText(this@MainActivity, getString(R.string.done), Toast.LENGTH_SHORT).show()
     }
 
 

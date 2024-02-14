@@ -5,13 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.vozniak.shoplistwithclenarchitecture.R
 import com.vozniak.shoplistwithclenarchitecture.databinding.ActivityShopListBinding
 import com.vozniak.shoplistwithclenarchitecture.domain.ShopItem
 
-class ShopListActivity : AppCompatActivity() {
+class ShopListActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedListener {
     private lateinit var binding: ActivityShopListBinding
 
     private var screenMode = UNKNOWN_MODE
@@ -56,6 +57,10 @@ class ShopListActivity : AppCompatActivity() {
 
     }
 
+    override fun initFinish() {
+        finish()
+        Toast.makeText(this, getString(R.string.done), Toast.LENGTH_SHORT).show()
+    }
 
     companion object {
         private const val EXTRA_SCREEN_MODE = "extra_mod"
