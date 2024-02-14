@@ -1,5 +1,6 @@
 package com.vozniak.shoplistwithclenarchitecture.presentation
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -18,6 +19,15 @@ class ShopItemFragment : Fragment() {
     private var shopItemId = ShopItem.UNDEFINED_ID
     private lateinit var viewModel: ShopItemViewModel
     private lateinit var binding: FragmentShopItemBinding
+    private lateinit var onEditingFinishedListener: OnEditingFinishedListener
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnEditingFinishedListener) {
+            onEditingFinishedListener = context
+        } else throw RuntimeException("Activity must implement: ShopItemFragment.OnEditingFinishedListener")
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         parseParams()
@@ -93,7 +103,7 @@ class ShopItemFragment : Fragment() {
             binding.MyNameText.error = massage
         }
         viewModel.finish.observe(viewLifecycleOwner) {
-            requireActivity().onBackPressedDispatcher.onBackPressed()
+            onEditingFinishedListener.initFinish()
         }
     }
 
@@ -137,6 +147,11 @@ class ShopItemFragment : Fragment() {
             shopItemId = args.getInt(EXTRA_SHOP_ITEM_ID, ShopItem.UNDEFINED_ID)
         }
 
+    }
+
+    interface OnEditingFinishedListener {
+        // finishing logic
+        fun initFinish()
     }
 
     companion object {
