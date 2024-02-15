@@ -118,7 +118,7 @@ class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedList
 
     override fun initFinish() {
         supportFragmentManager.popBackStack()
-        Toast.makeText(this@MainActivity, getString(R.string.done), Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@MainActivity, getString(R.string.good_job), Toast.LENGTH_SHORT).show()
     }
 
 
